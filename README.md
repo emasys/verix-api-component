@@ -12,6 +12,8 @@ npm install --save verix-api-component
 
 ## Usage
 
+Add verixapi css to your index.html file - https://app.verixapi.com/connect.css
+
 ```jsx
 import React, { Component } from "react";
 
