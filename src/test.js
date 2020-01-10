@@ -1,7 +1,7 @@
-import ExampleComponent from './'
+import VerixApiButton from './'
 
-describe('ExampleComponent', () => {
+describe('VerixApiButton', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(VerixApiButton).toBeTruthy()
   })
 })
