@@ -64,12 +64,6 @@ class VerixApiButton extends Component {
     this.handleVerix()
   }
 
-  exit(configurationObject) {
-    if (this.linkHandler) {
-      this.linkHandler.exit(configurationObject)
-    }
-  }
-
   render() {
     return (
       <div>
