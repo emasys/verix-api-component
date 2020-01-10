@@ -10,6 +10,9 @@
 npm install --save verix-api-component
 ```
 
+## Demo
+[Demo](https://emasys.github.io/verix-api-component/)
+
 ## Usage
 
 Add verixapi css to your index.html file - https://app.verixapi.com/connect.css
