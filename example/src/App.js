@@ -18,7 +18,7 @@ export default class App extends Component {
           <VerixButton
             env="sandbox"
             className="button"
-            clientId="__client_key___"
+            clientId="__client_id__"
             onSuccess={this.handleSuccess}
             onExit={this.handleExit}
           >

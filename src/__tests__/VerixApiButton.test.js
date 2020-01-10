@@ -1,4 +1,4 @@
-import VerixApiButton from './'
+import VerixApiButton from '../'
 
 describe('VerixApiButton', () => {
   it('is truthy', () => {

@@ -44,7 +44,7 @@ class Example extends Component {
 ## All Props
 
 ```jsx
-<VerixButton
+<VerixAPIButton
   env="sandbox|development|production"
   style={{__your_button_style__}}
   className="__button_class__"
@@ -53,7 +53,7 @@ class Example extends Component {
   onExit={this.handleExit}
 >
   button label
-</VerixButton>
+</VerixAPIButton>
 ```
 
 # Contributing
