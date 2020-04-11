@@ -1,88 +1,76 @@
-import React, { Component } from 'react'
-import Script from 'react-load-script'
-import PropTypes from 'prop-types'
+import React from "react";
+import Script from "react-load-script";
+import PropTypes from "prop-types";
 
-class VerixApiButton extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      disabledButton: true,
-      linkLoaded: false
-    }
-  }
-
-  static propTypes = {
-    // The API environment
-    env: PropTypes.oneOf(['sandbox', 'development', 'production']).isRequired,
-
-    // Publicly-exposed string, accessed via developer dashboard, used to initialize Verix Connect,
-    // identify your application, and build authorization URLs presented to users
-    clientId: PropTypes.string.isRequired,
-
-    // A function that is called after a successful token exchange
-    // The function takes one argument - results
-    onSuccess: PropTypes.func.isRequired,
-
-    // A function that is called when a user has specifically exited Link flow
-    onExit: PropTypes.func,
-
-    // Button Class names as a String
-    className: PropTypes.string,
-
-    // Button Styles as an Object
-    style: PropTypes.object,
-
-    children: PropTypes.any
+function VerixApiButton(props) {
+  const onScriptError = () => {
+    console.error("There was an issue loading the link-initialize.js script");
   };
-
-  onScriptError = () => {
-    console.error('There was an issue loading the link-initialize.js script')
-  }
-
-  onScriptLoaded = () => {
-    const { onSuccess, onExit } = this.props
+  const onScriptLoaded = () => {
+    const { onSuccess, onExit } = props;
     if (!onSuccess || !onExit) {
-      return console.error('onSuccess() and onExit() props are required')
+      console.error("onSuccess() and onExit() props are required");
+      return false
     }
-    this.setState({ disabledButton: false })
-  }
-
-  handleVerix = () => {
-    const { onSuccess, onExit } = this.props
-    const configuration = {
-      clientId: this.props.clientId,
-      environment: this.props.env
-    }
-    const Verix = window.Verix
-    const verix = new Verix(configuration)
-    verix.launch()
-    verix.success((results) => onSuccess(results))
-    verix.cancel((results) => onExit(results))
+    return true;
   };
-
-  handleOnClick = (event) => {
-    this.handleVerix()
-  }
-
-  render() {
-    return (
-      <div>
-        <button
-          onClick={this.handleOnClick}
-          disabled={this.state.disabledButton}
-          style={this.props.style}
-          className={this.props.className}
-        >
-          {this.props.children}
-        </button>
-        <Script
-          url='https://app.verixapi.com/connect.js'
-          onError={this.onScriptError}
-          onLoad={this.onScriptLoaded}
-        />
-      </div>
-    )
-  }
+  const handleVerix = () => {
+    const { onSuccess, onExit } = props;
+    const configuration = {
+      clientId: props.clientId,
+      environment: props.env
+    };
+    const Verix = window.Verix;
+    const verix = new Verix(configuration);
+    verix.launch();
+    verix.success(results => onSuccess(results));
+    verix.cancel(results => onExit(results));
+  };
+  const handleOnClick = event => {
+    handleVerix();
+  };
+  const disabled = onScriptLoaded();
+  return (
+    <div>
+      <button
+        onClick={handleOnClick}
+        disabled={!disabled}
+        style={props.style}
+        className={props.className}
+      >
+        {props.children}
+      </button>
+      <Script
+        url='https://app.verixapi.com/connect.js'
+        onError={onScriptError}
+        onLoad={onScriptLoaded}
+      />
+    </div>
+  );
 }
 
-export default VerixApiButton
+VerixApiButton.propTypes = {
+  // The API environment
+  env: PropTypes.oneOf(["sandbox", "development", "production"]).isRequired,
+
+  // Publicly-exposed string, accessed via developer dashboard, used to initialize Verix Connect,
+  // identify your application, and build authorization URLs presented to users
+  clientId: PropTypes.string.isRequired,
+
+  // A function that is called after a successful token exchange
+  // The function takes one argument - results
+  onSuccess: PropTypes.func.isRequired,
+
+  // A function that is called when a user has specifically exited Link flow
+  onExit: PropTypes.func,
+
+  // Button Class names as a String
+  className: PropTypes.string,
+
+  // Button Styles as an Object
+  style: PropTypes.object,
+
+  children: PropTypes.any
+};
+
+export default VerixApiButton;
