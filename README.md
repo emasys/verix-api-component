@@ -106,8 +106,8 @@ dataProps = {
   className="__button_class__"
   clientId="__client_id___"
   data={dataProps}
-  onSuccess={this.handleSuccess}
-  onExit={this.handleExit}
+  onSuccess={(result) => {} }
+  onExit={(result) => {}}
 >
   button label
 </VerixAPIButton>
