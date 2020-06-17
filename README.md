@@ -19,7 +19,7 @@ npm install --save verix-api-component
 Add verixapi css to your index.html file - https://app.verixapi.com/connect.css
 
 ```jsx
-import React, { Component } from "react";
+import React from "react";
 import VerixAPIButton from "verix-api-component";
 
 const data = {
