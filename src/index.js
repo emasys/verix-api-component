@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 
 function VerixApiButton(props) {
   const onScriptError = () => {
-    console.error("There was an issue loading the link-initialize.js script");
+    console.error("There was an issue loading the script");
   };
   const onScriptLoaded = () => {
     const { onSuccess, onExit } = props;
     if (!onSuccess || !onExit) {
       console.error("onSuccess() and onExit() props are required");
-      return false
+      return false;
     }
     return true;
   };
@@ -18,7 +18,8 @@ function VerixApiButton(props) {
     const { onSuccess, onExit } = props;
     const configuration = {
       clientId: props.clientId,
-      environment: props.env
+      environment: props.env,
+      optionalData: props.data
     };
     const Verix = window.Verix;
     const verix = new Verix(configuration);
@@ -41,7 +42,7 @@ function VerixApiButton(props) {
         {props.children}
       </button>
       <Script
-        url='https://app.verixapi.com/connect.js'
+        url="https://app.verixapi.com/connect.js"
         onError={onScriptError}
         onLoad={onScriptLoaded}
       />
@@ -52,6 +53,9 @@ function VerixApiButton(props) {
 VerixApiButton.propTypes = {
   // The API environment
   env: PropTypes.oneOf(["sandbox", "development", "production"]).isRequired,
+
+  // form pre-fill data
+  data: PropTypes.object,
 
   // Publicly-exposed string, accessed via developer dashboard, used to initialize Verix Connect,
   // identify your application, and build authorization URLs presented to users
