@@ -45,7 +45,7 @@ const data = {
   email: "bensmith@gmail.com"
 };
 
-function Example(params) {
+function Example() {
   const handleSuccess = results => {
     console.log(results);
   };
